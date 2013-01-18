@@ -4,7 +4,25 @@
   (:import java.text.SimpleDateFormat
            java.util.Date))
 
-(deftest core-test
+(deftest find-namespaces-test
+  (testing "find-namespaces"
+    (is (= #{"cljtang.core-test"}
+           (find-namespaces "cljtang.core-test/func 1 2 3")))
+    (is (= #{"cljtang.core-test"
+             "cljtang.core"}
+           (find-namespaces "cljtang.core-test/func 1 2 3 (cljtang.core/find-namespaces \"\")")))))
+
+(defn func-for-eval-test [& more] more)
+
+(deftest eval-str-test
+  (testing "eval-str"
+    (is (= '(1 2 3)
+           (eval-str "cljtang.core-test/func-for-eval-test 1 2 3")))
+    (is (= '(1 2 3 #{"cljtang.core-test"})
+           (eval-str (str "cljtang.core-test/func-for-eval-test 1 2 3 "
+                          "(cljtang.core/find-namespaces \"cljtang.core-test/func-for-eval-test 1 2 3\")"))))))
+
+(deftest format-date-test
   (testing "format-date"
     (is (= (format-date (Date.))
            (.format (SimpleDateFormat. "yyyy-MM-dd HH:mm:ss") (Date.))))

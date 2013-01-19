@@ -12,7 +12,6 @@
                    :plugins [[codox "0.6.4"]
                              [jonase/eastwood "0.0.2"]
                              [lein-localrepo "0.4.1"]
-                             [lein-deps-tree "0.1.2"]
                              [lein-deps-tree "0.1.2"]]}
              :1.4.0 {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.5.0 {:dependencies [[org.clojure/clojure "1.5.0-RC2"]]}}

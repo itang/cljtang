@@ -20,6 +20,7 @@
       (let [reload? (get opts :reload false)
             sname (symbol name)]
         (if reload?
+          ;; OPTIMIZE 区分 java imports
           (require sname :reload)
           (require sname))))
     (load-string code)))

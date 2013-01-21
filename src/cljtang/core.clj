@@ -34,3 +34,6 @@
   ([^Date date ^String pattern]
      (.format (SimpleDateFormat. pattern) date)))
 
+(defn -main [& args]
+  (eval-str "println \"cljtang\"")
+  (doseq [arg args] (println arg)))

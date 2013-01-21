@@ -12,7 +12,7 @@
              :1.4.0 {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.5.0 {:dependencies [[org.clojure/clojure "1.5.0-RC2"]]}}
    :aliases {"run-tests" ["with-profile" "1.4.0:1.5.0" "test"]
-             "slamhound" ["run" "-m" "slam.hound"]}
+             "lanuch" ["run" "-m" "cljtang.core"]}
    :warn-on-reflection true
    :injections [(require 'clojure.pprint)]
    :pom-addition [:developers [:developer [:name "itang"]]])

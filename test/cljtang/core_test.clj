@@ -25,7 +25,10 @@
 (deftest map->kv-pairs-test
   (testing "map->kv-pairs"
            (is (= '({:key :name :value "itang"})
-                  (map->kv-pairs {:name "itang"})))))
+                  (map->kv-pairs {:name "itang"})))
+           (is (= '({:key :name :value "itang-"})
+                  (map->kv-pairs {:name "itang"} 
+                                 (fn [k v] (str v "-")))))))
    
 (deftest format-date-test
   (testing "format-date"

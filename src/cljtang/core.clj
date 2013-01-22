@@ -27,8 +27,9 @@
 
 (defn map->kv-pairs
   "将Map转换为Key-Value Pairs"
-  ([m] (map->kv-pairs m identity))
-  ([m fv] (for [[k v] m] {:key k :value (fv v)})))
+  [m & [fv]]
+  (for [[k v] m] {:key k 
+                  :value (if fv (fv k v) v)}))
 
 (def ^:dynamic *default-date-pattern* "yyyy-MM-dd HH:mm:ss")
 

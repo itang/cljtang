@@ -25,6 +25,13 @@
           (require sname))))
     (load-string code)))
 
+(defn more-args->map [more-array]
+  (cond
+    (nil? more-array) nil
+    (and (= 1 (count more-array))
+         (map? (first more-array))) (first more-array)
+    :else (apply hash-map more-array)))
+
 (defn map->kv-pairs
   "将Map转换为Key-Value Pairs"
   [m & [fv]]

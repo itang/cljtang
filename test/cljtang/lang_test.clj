@@ -2,31 +2,30 @@
   (:use clojure.test
         cljtang.lang))
 
-(defn- func [a & more]
-  (more-args->map more))
-
-(deftest more-args->map-test
-  (testing "2 more args"
-           (is (= {:name "itang"} 
-                  (func "one" :name "itang")))
-           (is (= {"name" "itang"} 
-                  (func "one" "name" "itang")))
-           (is (= {1 true} 
-                  (func "one" 1 true))))
-  (testing "more args"
-           (is (= {:name "itang" :password "test"} 
-                  (func "one" :name "itang" :password "test"))))
-  (testing "more args is map"
-           (is (= {:name "itang"} 
-                  (func "one" {:name "itang"}))))
-  (testing "bad more args"
-           (is (thrown? Exception (func "one" :name)))
-           (is (thrown? Exception (func "one" :one :two :three)))))
-
 (deftest named?-test
   (testing "named?"
-    (is (true? (named? :name)))
-    (is (true? (named? 'name)))
-    (is (false? (named? 1)))
-    (is (false? (named? true)))
-    (is (false? (named? [1 2])))))
+           (is (true? (named? :name)))
+           (is (true? (named? 'name)))
+           (is (false? (named? 1)))
+           (is (false? (named? true)))
+           (is (false? (named? [1 2])))))
+
+(deftest if-blank-test
+  (testing "if-blank"
+           (is (= "a" (if-blank nil "a" "b")))
+           (is (= "a" (if-blank {} "a" "b")))
+           (is (= "a" (if-blank [] "a" "b")))
+           (is (= "a" (if-blank "" "a" "b")))
+           (is (= "a" (if-blank "   " "a" "b")))
+           (is (= "a" (if-blank \newline "a" "b")))))
+
+(deftest when-blank-test
+  (testing "when-blank"
+           (is (= "b" (when-blank nil "a" "b")))
+           (is (= "a" (when-blank {} "a")))
+           (is (= "b" (when-blank [] "a" "b")))
+           (is (= "b" (when-blank "" "a" "b")))
+           (is (= "b" (when-blank "   " "a" "b")))
+           (is (= nil (when-blank "some" "a" "b")))))
+
+

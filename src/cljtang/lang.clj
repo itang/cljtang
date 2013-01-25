@@ -1,14 +1,10 @@
 (ns cljtang.lang
   (:require [clojure.string :as str]))
 
-(defn more-args->map [more-array]
-  (cond
-    (nil? more-array) nil
-    (and (= 1 (count more-array))
-         (map? (first more-array))) (first more-array)
-    :else (apply hash-map more-array)))
+(defn named? [obj]
+  (instance? clojure.lang.Named obj))
 
-(defn empty-x? [obj]
+(defn blank? [obj]
   "判定值是否为空"
   (cond
     (nil? obj) true
@@ -17,11 +13,16 @@
     (coll? obj) (empty? obj) ;; empty? coll
     :else false))
 
-(defn named? [obj]
-  (instance? clojure.lang.Named obj))
+(defmacro if-blank [obj blk-expr els-expr]
+  `(if (blank? ~obj)
+     ~blk-expr
+     ~els-expr))
 
-(defmacro if-empty [cond ept-expr els-expr]
-  `(if (empty-x? ~cond) ~ept-expr ~els-expr))
+(defmacro when-blank [obj & blk-expr]
+  `(when (blank? ~obj)
+     ~@blk-expr))
 
-(defmacro empty-else [obj default-value-expr]
-  `(if-empty ~obj ~default-value-expr ~obj))
+(defmacro blank-else [obj default-value-expr]
+  `(if-blank ~obj
+             ~default-value-expr
+             ~obj))

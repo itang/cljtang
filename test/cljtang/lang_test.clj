@@ -22,3 +22,11 @@
   (testing "bad more args"
            (is (thrown? Exception (func "one" :name)))
            (is (thrown? Exception (func "one" :one :two :three)))))
+
+(deftest named?-test
+  (testing "named?"
+    (is (true? (named? :name)))
+    (is (true? (named? 'name)))
+    (is (false? (named? 1)))
+    (is (false? (named? true)))
+    (is (false? (named? [1 2])))))

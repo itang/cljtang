@@ -17,6 +17,9 @@
     (coll? obj) (empty? obj) ;; empty? coll
     :else false))
 
+(defn named? [obj]
+  (instance? clojure.lang.Named obj))
+
 (defmacro if-empty [cond ept-expr els-expr]
   `(if (empty-x? ~cond) ~ept-expr ~els-expr))
 

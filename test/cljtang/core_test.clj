@@ -54,7 +54,7 @@
 (deftest format-date-test
   (testing "format-date"
     (let [now (Date.)]
-      (is (= (format-date (Date.))
+      (is (= (format-date now)
              (.format (SimpleDateFormat. "yyyy-MM-dd HH:mm:ss") now)))
       (is (= (format-date now "yyyy-MM-dd")
              (.format (SimpleDateFormat. "yyyy-MM-dd") now)))

@@ -53,10 +53,11 @@
    
 (deftest format-date-test
   (testing "format-date"
-           (is (= (format-date (Date.))
-                  (.format (SimpleDateFormat. "yyyy-MM-dd HH:mm:ss") (Date.))))
-           (is (= (format-date (Date.) "yyyy-MM-dd")
-                  (.format (SimpleDateFormat. "yyyy-MM-dd") (Date.))))
-           (is (thrown? Exception (format-date)))
-           (is (thrown? Exception (format-date (Date.) "bad-pattern")))))
+    (let [now (Date.)]
+      (is (= (format-date (Date.))
+             (.format (SimpleDateFormat. "yyyy-MM-dd HH:mm:ss") now)))
+      (is (= (format-date now "yyyy-MM-dd")
+             (.format (SimpleDateFormat. "yyyy-MM-dd") now)))
+      (is (thrown? Exception (format-date)))
+      (is (thrown? Exception (format-date (Date.) "bad-pattern"))))))
 

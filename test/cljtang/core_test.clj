@@ -10,7 +10,10 @@
                   (find-namespaces "cljtang.core-test/func 1 2 3")))
            (is (= #{"cljtang.core-test"
                     "cljtang.core"}
-                  (find-namespaces "cljtang.core-test/func 1 2 3 (cljtang.core/find-namespaces \"\")")))))
+                  (find-namespaces 
+                    (str "cljtang.core-test/func"
+                         " 1 2 3 "
+                         "(cljtang.core/find-namespaces \"\")"))))))
 
 (defn func-for-eval-test [& more] more)
 
@@ -19,8 +22,11 @@
            (is (= '(1 2 3)
                   (eval-str "cljtang.core-test/func-for-eval-test 1 2 3")))
            (is (= '(1 2 3 #{"cljtang.core-test"})
-                  (eval-str (str "cljtang.core-test/func-for-eval-test 1 2 3 "
-                                 "(cljtang.core/find-namespaces \"cljtang.core-test/func-for-eval-test 1 2 3\")"))))))
+                  (eval-str 
+                    (str "cljtang.core-test/func-for-eval-test"
+                         " 1 2 3 "
+                         "(cljtang.core/find-namespaces "
+                         "\"cljtang.core-test/func-for-eval-test 1 2 3\")"))))))
 
 (defn- func [a & more]
   (more-args->map more))
@@ -60,4 +66,3 @@
              (.format (SimpleDateFormat. "yyyy-MM-dd") now)))
       (is (thrown? Exception (format-date)))
       (is (thrown? Exception (format-date (Date.) "bad-pattern"))))))
-

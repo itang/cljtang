@@ -8,7 +8,9 @@
                              [jonase/eastwood "0.0.2"]
                              [lein-localrepo "0.4.1"]
                              [lein-deps-tree "0.1.2"]
-                             [lein-pprint "1.1.1"]]}
+                             [lein-pprint "1.1.1"]
+                             [lein-kibit "0.0.7"]
+                             [lein-bikeshed "0.1.0"]]}
              :1.4.0 {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.5.0 {:dependencies [[org.clojure/clojure "1.5.0-RC2"]]}}
    :aliases {"run-tests" ["with-profile" "1.4.0:1.5.0" "test"]

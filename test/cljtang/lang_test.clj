@@ -27,5 +27,3 @@
            (is (= "b" (when-blank "" "a" "b")))
            (is (= "b" (when-blank "   " "a" "b")))
            (is (= nil (when-blank "some" "a" "b")))))
-
-

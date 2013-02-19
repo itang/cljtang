@@ -1,6 +1,7 @@
 (ns cljtang.core
   (:import java.util.Date
-           java.text.SimpleDateFormat))
+           java.text.SimpleDateFormat
+           [java.io PrintWriter StringWriter]))
 
 (defn find-namespaces [^String code]
   (->> (re-seq #"([\w|\\.|\\-]+)/(\w+)" code)
@@ -46,6 +47,14 @@
      (format-date date *default-date-pattern*))
   ([^Date date ^String pattern]
      (.format (SimpleDateFormat. pattern) date)))
+
+(defn stacktrace->string
+  "获取异常栈信息"
+  [^Throwable throwable]
+  (let [sw (StringWriter.)
+        pw (PrintWriter. sw)]
+    (.printStackTrace throwable pw)
+    (str sw)))
 
 (defn -main [& args]
   (eval-str "println \"cljtang\"")

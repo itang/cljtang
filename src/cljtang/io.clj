@@ -1,6 +1,5 @@
 (ns cljtang.io
-  (:require [clojure.java.io :refer [file]]
-            [clojure.string :refer [join]]))
+  (:require [clojure.java.io :refer [file]]))
 
 (defn concatenating
   "合并文件内容"

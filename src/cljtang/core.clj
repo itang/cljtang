@@ -39,6 +39,13 @@
   (for [[k v] m] {:key k 
                   :value (if fv (fv k v) v)}))
 
+(defn maplist-with-no 
+  ([coll] (maplist-with-no coll :no))
+  ([coll noname]
+    (map #(assoc %1 noname %2)
+         coll
+         (range 1 (-> coll count inc)))))
+
 (def ^:dynamic *default-date-pattern* "yyyy-MM-dd HH:mm:ss")
 
 (defn format-date

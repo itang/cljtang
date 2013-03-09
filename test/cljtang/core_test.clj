@@ -66,3 +66,15 @@
              (.format (SimpleDateFormat. "yyyy-MM-dd") now)))
       (is (thrown? Exception (format-date)))
       (is (thrown? Exception (format-date (Date.) "bad-pattern"))))))
+
+(deftest maplist-with-no-test
+  (is (= []
+         (maplist-with-no [])))
+  (is (= []
+         (maplist-with-no nil)))
+  (is (= [{:no 1 :name "itang"}]
+         (maplist-with-no [{:name "itang"}])))
+  (is (= [{:index 1 :name "itang"}]
+         (maplist-with-no [{:name "itang"}] :index)))
+  (is (= [{:no 1 :name "itang"} {:no 2 :name "tqibm"}]
+         (maplist-with-no [{:name "itang"} {:name "tqibm"}]))))

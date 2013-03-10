@@ -55,6 +55,16 @@
   ([^Date date ^String pattern]
      (.format (SimpleDateFormat. pattern) date)))
 
+(defn moment
+  "当前时间"
+  []
+  (java.util.Date.))
+
+(defn moment-format
+  "当前时间格式化"
+  [& args]
+  (apply format-date (moment) args))
+
 (defn stacktrace->string
   "获取异常栈信息"
   [^Throwable throwable]
@@ -62,7 +72,3 @@
         pw (PrintWriter. sw)]
     (.printStackTrace throwable pw)
     (str sw)))
-
-(defn -main [& args]
-  (eval-str "println \"cljtang\"")
-  (doseq [arg args] (println arg)))

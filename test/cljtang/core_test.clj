@@ -78,3 +78,27 @@
          (maplist-with-no [{:name "itang"}] :index)))
   (is (= [{:no 1 :name "itang"} {:no 2 :name "tqibm"}]
          (maplist-with-no [{:name "itang"} {:name "tqibm"}]))))
+
+(deftest substring-test
+  (is (= "hello"
+         (substring "hello" 0 5)))
+  (is (= ""
+         (substring "hello" 1 0)))
+  (is (= ""
+         (substring "hello" 2 0)))
+  (is (= "ello"
+         (substring "hello" 1 4)))
+  (is (= "el"
+         (substring "hello" 1 2)))
+  (is (= "ell"
+         (substring "hello" 1 3)))
+  (is (= ""
+         (substring "hello" 5 3)))
+  (is (= ""
+         (substring "hello" 6 1)))
+  (is (= "o"
+         (substring "hello" 4 1)))
+  (is (= "o"
+         (substring "hello" 4 4)))
+  (is (= "ello"
+         (substring "hello" 1 5))))

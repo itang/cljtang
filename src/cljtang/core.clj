@@ -72,3 +72,11 @@
         pw (PrintWriter. sw)]
     (.printStackTrace throwable pw)
     (str sw)))
+
+(defn substring [^String s start len]
+  (if (or (<= len 0)
+          (>= start (count s) ))
+    ""
+    (let [end
+          (min (count s) (+ start len))]
+      (subs s start end))))

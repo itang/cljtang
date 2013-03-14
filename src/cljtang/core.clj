@@ -74,7 +74,8 @@
     (str sw)))
 
 (defn substring [^String s start len]
-  (if (or (<= len 0)
+  (if (or (empty? s)
+          (<= len 0)
           (>= start (count s) ))
     ""
     (let [end

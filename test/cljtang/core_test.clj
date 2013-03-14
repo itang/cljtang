@@ -4,29 +4,13 @@
   (:import java.text.SimpleDateFormat
            java.util.Date))
 
-(deftest find-namespaces-test
-  (testing "find-namespaces"
-           (is (= #{"cljtang.core-test"}
-                  (find-namespaces "cljtang.core-test/func 1 2 3")))
-           (is (= #{"cljtang.core-test"
-                    "cljtang.core"}
-                  (find-namespaces 
-                    (str "cljtang.core-test/func"
-                         " 1 2 3 "
-                         "(cljtang.core/find-namespaces \"\")"))))))
-
-(defn func-for-eval-test [& more] more)
-
-(deftest eval-str-test
-  (testing "eval-str"
-           (is (= '(1 2 3)
-                  (eval-str "cljtang.core-test/func-for-eval-test 1 2 3")))
-           (is (= '(1 2 3 #{"cljtang.core-test"})
-                  (eval-str 
-                    (str "cljtang.core-test/func-for-eval-test"
-                         " 1 2 3 "
-                         "(cljtang.core/find-namespaces "
-                         "\"cljtang.core-test/func-for-eval-test 1 2 3\")"))))))
+(deftest named?-test
+  (testing "named?"
+           (is (true? (named? :name)))
+           (is (true? (named? 'name)))
+           (is (false? (named? 1)))
+           (is (false? (named? true)))
+           (is (false? (named? [1 2])))))
 
 (defn- func [a & more]
   (more-args->map more))
@@ -75,9 +59,11 @@
   (is (= [{:no 1 :name "itang"}]
          (maplist-with-no [{:name "itang"}])))
   (is (= [{:index 1 :name "itang"}]
-         (maplist-with-no [{:name "itang"}] :index)))
+         (maplist-with-no [{:name "itang"}] :noname :index)))
   (is (= [{:no 1 :name "itang"} {:no 2 :name "tqibm"}]
-         (maplist-with-no [{:name "itang"} {:name "tqibm"}]))))
+         (maplist-with-no [{:name "itang"} {:name "tqibm"}])))
+  (is (= [{:no 2 :name "itang"} {:no 3 :name "tqibm"}]
+         (maplist-with-no [{:name "itang"} {:name "tqibm"}] :start 2))))
 
 (deftest substring-test
   (is (= ""

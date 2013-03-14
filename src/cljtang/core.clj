@@ -3,48 +3,18 @@
            java.text.SimpleDateFormat
            [java.io PrintWriter StringWriter]))
 
-(defn find-namespaces [^String code]
-  (->> (re-seq #"([\w|\\.|\\-]+)/(\w+)" code)
-       (map second)
-       (into #{}) ;(apply hash-set)
-       ))
+(defn named? [obj]
+  (instance? clojure.lang.Named obj))
 
-(defn- wrap-code [^String code]
-  (if (.startsWith code "(")
-    code
-    (str "(" code ")")))
+(defn each [a1 a2]
+  (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
+    (doseq [e coll] (f e))))
 
-(defn eval-str [^String code & [opts]]
-  (let [code (wrap-code code)
-        namespaces (find-namespaces code)]
-    (doseq [name namespaces]
-      (let [reload? (get opts :reload false)
-            sname (symbol name)]
-        (if reload?
-          ;; OPTIMIZE 区分 java imports
-          (require sname :reload)
-          (require sname))))
-    (load-string code)))
+(def doeach each)
 
-(defn more-args->map [more-array]
-  (cond
-    (nil? more-array) nil
-    (and (= 1 (count more-array))
-         (map? (first more-array))) (first more-array)
-    :else (apply hash-map more-array)))
-
-(defn map->kv-pairs
-  "将Map转换为Key-Value Pairs"
-  [m & [fv]]
-  (for [[k v] m] {:key k 
-                  :value (if fv (fv k v) v)}))
-
-(defn maplist-with-no 
-  ([coll] (maplist-with-no coll :no))
-  ([coll noname]
-    (map #(assoc %1 noname %2)
-         coll
-         (range 1 (-> coll count inc)))))
+(defn domap [a1 a2]
+  (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
+    (->> coll (map f) doall)))
 
 (def ^:dynamic *default-date-pattern* "yyyy-MM-dd HH:mm:ss")
 
@@ -73,7 +43,9 @@
     (.printStackTrace throwable pw)
     (str sw)))
 
-(defn substring [^String s start len]
+(defn substring
+  "截取字符串"
+  [^String s start len]
   (if (or (empty? s)
           (<= len 0)
           (>= start (count s) ))
@@ -82,13 +54,24 @@
           (min (count s) (+ start len))]
       (subs s start end))))
 
-(defn each [a1 a2]
-  (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
-    (doseq [e coll] (f e))))
+(defn more-args->map
+  "将‘配置参数’转换为map"
+  [more-array]
+  (cond
+    (nil? more-array) nil
+    (and (= 1 (count more-array))
+         (map? (first more-array))) (first more-array)
+    :else (apply hash-map more-array)))
 
-(def doeach each)
+(defn map->kv-pairs
+  "将Map转换为Key-Value Pairs"
+  [m & [fv]]
+  (for [[k v] m] {:key k 
+                  :value (if fv (fv k v) v)}))
 
-(defn domap [a1 a2]
-  (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
-    (->> coll (map f) doall)))
-
+(defn maplist-with-no
+  "给集合项添加序号"
+  [coll & {:keys [start noname] :or {start 1 noname :no}}]
+    (map #(assoc %1 noname %2)
+         coll
+         (range start (-> coll count (+ start)))))

@@ -81,3 +81,14 @@
     (let [end
           (min (count s) (+ start len))]
       (subs s start end))))
+
+(defn each [a1 a2]
+  (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
+    (doseq [e coll] (f e))))
+
+(def doeach each)
+
+(defn domap [a1 a2]
+  (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
+    (->> coll (map f) doall)))
+

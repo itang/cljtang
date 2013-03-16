@@ -58,7 +58,7 @@
   "将‘配置参数’转换为map"
   [more-array]
   (cond
-    (nil? more-array) nil
+    (empty? more-array) {}
     (and (= 1 (count more-array))
          (map? (first more-array))) (first more-array)
     :else (apply hash-map more-array)))

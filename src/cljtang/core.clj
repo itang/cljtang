@@ -72,6 +72,13 @@
 (defn maplist-with-no
   "给集合项添加序号"
   [coll & {:keys [start noname] :or {start 1 noname :no}}]
+    (map-indexed #(assoc %2 noname (+ start %1)) coll))
+
+(comment
+(defn maplist-with-no
+  "给集合项添加序号"
+  [coll & {:keys [start noname] :or {start 1 noname :no}}]
     (map #(assoc %1 noname %2)
          coll
          (range start (-> coll count (+ start)))))
+)

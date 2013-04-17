@@ -97,3 +97,27 @@
 
   (is (= "ello"
          (substring "hello" 1 5))))
+
+(deftest if-nil-test
+  (is (= "a" (if-nil nil "a" "b")))
+  (is (= "b" (if-nil true "a" "b")))
+  (is (= "b" (if-nil "some" "a" "b")))
+  (is (= "b" (if-nil [] "a" "b"))))
+
+(deftest if-not-nil-test
+  (is (= "b" (if-not-nil nil "a" "b")))
+  (is (= "a" (if-not-nil true "a" "b")))
+  (is (= "a" (if-not-nil "some" "a" "b")))
+  (is (= "a" (if-not-nil [] "a" "b"))))
+
+(deftest when-nil-test
+  (is (= "b" (when-nil nil "a" "b")))
+  (is (nil? (when-nil true "a" "b")))
+  (is (nil? (when-nil "some" "a" "b")))
+  (is (nil? (when-nil [] "a" "b"))))
+
+(deftest when-not-nil-test
+  (is (nil? (when-not-nil nil "a" "b")))
+  (is (= "b" (when-not-nil true "a" "b")))
+  (is (= "b" (when-not-nil "some" "a" "b")))
+  (is (= "a" (when-not-nil [] "a"))))

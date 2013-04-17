@@ -91,7 +91,7 @@
    `(if (nil? ~test) ~then ~else)))
 
 (defmacro if-not-nil
-  "Evaluates test. If nil, evaluates and returns then expr, 
+  "Evaluates test. If not nil, evaluates and returns then expr, 
   otherwise else expr, if supplied, else nil."
   ([test then] `(if-not-nil ~test ~then nil))
   ([test then else]
@@ -103,6 +103,6 @@
   (list 'if-nil test (cons 'do body)))
 
 (defmacro when-not-nil
-  "Evaluates test. If nil, evaluates body in an implicit do."
+  "Evaluates test. If not nil, evaluates body in an implicit do."
   [test & body]
   (list 'if-not-nil test (cons 'do body)))

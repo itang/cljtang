@@ -121,3 +121,12 @@
   (is (= "b" (when-not-nil true "a" "b")))
   (is (= "b" (when-not-nil "some" "a" "b")))
   (is (= "a" (when-not-nil [] "a"))))
+
+(deftest not-nil?-test
+  (is (not-nil? []))
+  (is (not-nil? true))
+  (is (not-nil? false))
+  (is (not-nil? ""))
+  (is (not-nil? :some))
+  (is (false? (not-nil? nil))))
+

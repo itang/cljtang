@@ -106,3 +106,7 @@
   "Evaluates test. If not nil, evaluates body in an implicit do."
   [test & body]
   (list 'if-not-nil test (cons 'do body)))
+
+(defn not-nil? [x]
+  (not (nil? x)))
+

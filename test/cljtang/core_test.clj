@@ -130,3 +130,24 @@
   (is (not-nil? :some))
   (is (false? (not-nil? nil))))
 
+(deftest when->-test
+  (is (= "some" 
+        (when-> nil nil? "some")))
+  (is (= "somemore"
+        (when-> nil nil? (do "some" "somemore"))))
+  (is (= "tqibm"
+        (when-> "itang" (partial = "itang") "tqibm")))
+  (is (= 10
+        (when-> -10 neg? 10)))
+  (is (= 10
+        (when-> 10 neg? 100)))
+  (is (= -9
+        (when-> -10 neg? inc)))
+  (is (= 10
+        (when-> 10 neg? inc)))
+  (is (= "hao-itang"
+        (when-> "itang" (partial = "itang") #(str "hao-" %)))))
+
+(deftest nil->test
+  (is (= "itang" (nil-> nil "itang")))
+  (is (= "tqibm" (nil-> "tqibm" "itang"))))

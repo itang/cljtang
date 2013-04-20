@@ -110,3 +110,18 @@
 (defn not-nil? [x]
   (not (nil? x)))
 
+(defmacro when-> [x test then]
+  `(let [x# ~x
+         t# ~test
+         t# (if (fn? t#) 
+              (t# x#)
+              t#)]
+     (if t# 
+       (let [then# ~then]
+         (if (fn? then#)
+           (then# x#)
+           then#))
+       x#)))
+
+(defmacro nil-> [x & then]
+  `(when-> ~x nil? ~@then))

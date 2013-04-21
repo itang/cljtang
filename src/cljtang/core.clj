@@ -123,5 +123,15 @@
            then#))
        x#)))
 
-(defmacro nil-> [x & then]
-  `(when-> ~x nil? ~@then))
+(defmacro when-not-> [x test then]
+  `(let [test# ~test
+         test# (if (fn? test#)
+                 (comp not test#)
+                 (not test#))]
+     (when-> ~x test# ~then)))
+
+(defmacro nil-> [x then]
+  `(when-> ~x nil? ~then))
+
+(defmacro not-nil-> [x then]
+  `(when-> ~x (comp not nil?) ~then))

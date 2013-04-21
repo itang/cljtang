@@ -148,6 +148,30 @@
   (is (= "hao-itang"
         (when-> "itang" (partial = "itang") #(str "hao-" %)))))
 
+(deftest when-not->-test 
+  (is (= nil 
+        (when-not-> nil nil? "some")))
+  (is (= nil
+        (when-not-> nil nil? (do "some" "somemore"))))
+  (is (= "tqibm"
+        (when-not-> "itang" (partial not= "itang") "tqibm")))
+  (is (= 10
+        (when-not-> -10 pos? 10)))
+  (is (= 10
+        (when-not-> 10 pos? 100)))
+  (is (= -9
+        (when-not-> -10 pos? inc)))
+  (is (= 10
+        (when-not-> 10 pos? inc)))
+  (is (= "hao-itang"
+        (when-not-> "itang" (partial not= "itang") #(str "hao-" %)))))
+
 (deftest nil->test
   (is (= "itang" (nil-> nil "itang")))
   (is (= "tqibm" (nil-> "tqibm" "itang"))))
+
+(deftest not-nil->test
+  (is (= nil (not-nil-> nil "itang")))
+  (is (= "itang" (not-nil-> inc "itang")))
+  (is (= "itang" (not-nil-> (inc 1) "itang")))
+  (is (= "itang" (not-nil-> "tqibm" "itang"))))

@@ -111,24 +111,24 @@
   (not (nil? x)))
 
 (defmacro when-> [x test then]
-  `(let [x# ~x
-         t# ~test
-         t# (if (fn? t#) 
-              (t# x#)
-              t#)]
-     (if t# 
-       (let [then# ~then]
-         (if (fn? then#)
-           (then# x#)
-           then#))
-       x#)))
+  `(let [~'x ~x
+         ~'t ~test
+         ~'t (if (fn? ~'t) 
+              (~'t ~'x)
+              ~'t)]
+     (if ~'t 
+       (let [~'then ~then]
+         (if (fn? ~'then)
+           (~'then ~'x)
+           ~'then))
+       ~'x)))
 
 (defmacro when-not-> [x test then]
-  `(let [test# ~test
-         test# (if (fn? test#)
-                 (comp not test#)
-                 (not test#))]
-     (when-> ~x test# ~then)))
+  `(let [~'test ~test
+         ~'test (if (fn? ~'test)
+                 (comp not ~'test)
+                 (not ~'test))]
+     (when-> ~x ~'test ~then)))
 
 (defmacro nil-> [x then]
   `(when-> ~x nil? ~then))
@@ -138,4 +138,4 @@
 
 ;;constantly macro version
 (defmacro fn-* [& body]
-  `(fn [& args#] ~@body))
+  `(fn [& ~'args] ~@body))

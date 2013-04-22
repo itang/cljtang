@@ -126,7 +126,7 @@
 (defmacro when-not-> [x test then]
   `(let [~'test ~test
          ~'test (if (fn? ~'test)
-                 (comp not ~'test)
+                 (complement ~'test)
                  (not ~'test))]
      (when-> ~x ~'test ~then)))
 

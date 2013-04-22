@@ -175,3 +175,6 @@
   (is (= "itang" (not-nil-> inc "itang")))
   (is (= "itang" (not-nil-> (inc 1) "itang")))
   (is (= "itang" (not-nil-> "tqibm" "itang"))))
+
+(deftest fn-*-test
+  (is (="itang" ((fn-* (str "itan" "g"))))))

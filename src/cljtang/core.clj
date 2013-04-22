@@ -135,3 +135,7 @@
 
 (defmacro not-nil-> [x then]
   `(when-> ~x (comp not nil?) ~then))
+
+;;constantly macro version
+(defmacro fn-* [& body]
+  `(fn [& args#] ~@body))

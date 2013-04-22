@@ -7,16 +7,16 @@
        (map second)
        (into #{})))
 
-(defn uuid []
+(defn ^String uuid []
   (str (java.util.UUID/randomUUID)))
 
-(defn uuid2 []
+(defn ^String uuid2 []
   (replace (uuid) "-" ""))
 
-(defn uuid->hash []
-  (.hashCode ^String (uuid)))
+(defn ^int uuid->hash []
+  (.hashCode (uuid)))
 
-(defn uuid->hash->id []
+(defn ^String uuid->hash->id []
   (let [hash (when-> (uuid->hash) neg? #(bit-shift-left (- %) 1))]
     (str hash)))
 

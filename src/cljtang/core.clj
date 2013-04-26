@@ -110,10 +110,14 @@
 (defn not-nil? [x]
   (not (nil? x)))
 
+;; no ifn?
+(defn wfn? [x]
+  (or (fn? x) (keyword? x)))
+
 (defmacro when-> [x test then]
   `(let [~'x ~x
          ~'t ~test
-         ~'t (if (fn? ~'t) 
+         ~'t (if (wfn? ~'t) 
               (~'t ~'x)
               ~'t)]
      (if ~'t 
@@ -125,7 +129,7 @@
 
 (defmacro when-not-> [x test then]
   `(let [~'test ~test
-         ~'test (if (fn? ~'test)
+         ~'test (if (wfn? ~'test)
                  (complement ~'test)
                  (not ~'test))]
      (when-> ~x ~'test ~then)))

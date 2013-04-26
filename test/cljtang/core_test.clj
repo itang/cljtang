@@ -164,7 +164,10 @@
   (is (= 10
         (when-not-> 10 pos? inc)))
   (is (= "hao-itang"
-        (when-not-> "itang" (partial not= "itang") #(str "hao-" %)))))
+        (when-not-> "itang" (partial not= "itang") #(str "hao-" %))))
+  (is (= {:p "itang" :p1 "hao-itang"}
+         (when-not-> {:p "itang"} :p1
+                     #(assoc % :p1 (str "hao-" (:p %)))))))
 
 (deftest nil->test
   (is (= "itang" (nil-> nil "itang")))

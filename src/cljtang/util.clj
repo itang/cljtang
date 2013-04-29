@@ -11,7 +11,7 @@
   (str (java.util.UUID/randomUUID)))
 
 (defn ^String uuid2 []
-  (replace (uuid) "-" ""))
+  (string/replace (uuid) "-" ""))
 
 (defn ^int uuid->hash []
   (.hashCode (uuid)))

@@ -66,7 +66,7 @@
 (defn map->kv-pairs
   "将Map转换为Key-Value Pairs"
   [m & [fv]]
-  (for [[k v] m] {:key k 
+  (for [[k v] m] {:key k
                   :value (if fv (fv k v) v)}))
 
 (defn maplist-with-no
@@ -84,14 +84,14 @@
 )
 
 (defmacro if-nil
-  "Evaluates test. If nil, evaluates and returns then expr, 
+  "Evaluates test. If nil, evaluates and returns then expr,
   otherwise else expr, if supplied, else nil."
   ([test then] `(if-nil ~test ~then nil))
   ([test then else]
    `(if (nil? ~test) ~then ~else)))
 
 (defmacro if-not-nil
-  "Evaluates test. If not nil, evaluates and returns then expr, 
+  "Evaluates test. If not nil, evaluates and returns then expr,
   otherwise else expr, if supplied, else nil."
   ([test then] `(if-not-nil ~test ~then nil))
   ([test then else]
@@ -117,10 +117,10 @@
 (defmacro when-> [x test then]
   `(let [~'x ~x
          ~'t ~test
-         ~'t (if (wfn? ~'t) 
+         ~'t (if (wfn? ~'t)
               (~'t ~'x)
               ~'t)]
-     (if ~'t 
+     (if ~'t
        (let [~'then ~then]
          (if (fn? ~'then)
            (~'then ~'x)

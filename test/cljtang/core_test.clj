@@ -17,17 +17,17 @@
 
 (deftest more-args->map-test
   (testing "2 more args"
-           (is (= {:name "itang"} 
+           (is (= {:name "itang"}
                   (func "one" :name "itang")))
-           (is (= {"name" "itang"} 
+           (is (= {"name" "itang"}
                   (func "one" "name" "itang")))
-           (is (= {1 true} 
+           (is (= {1 true}
                   (func "one" 1 true))))
   (testing "more args"
-           (is (= {:name "itang" :password "test"} 
+           (is (= {:name "itang" :password "test"}
                   (func "one" :name "itang" :password "test"))))
   (testing "more args is map"
-           (is (= {:name "itang"} 
+           (is (= {:name "itang"}
                   (func "one" {:name "itang"}))))
   (testing "bad more args"
            (is (thrown? Exception (func "one" :name)))
@@ -38,9 +38,9 @@
            (is (= '({:key :name :value "itang"})
                   (map->kv-pairs {:name "itang"})))
            (is (= '({:key :name :value "itang-"})
-                  (map->kv-pairs {:name "itang"} 
+                  (map->kv-pairs {:name "itang"}
                                  (fn [k v] (str v "-")))))))
-   
+
 (deftest format-date-test
   (testing "format-date"
     (let [now (Date.)]
@@ -89,7 +89,7 @@
          (substring "hello" 1 2)))
   (is (= "ell"
          (substring "hello" 1 3)))
-  
+
   (is (= "o"
          (substring "hello" 4 1)))
   (is (= "o"
@@ -131,7 +131,7 @@
   (is (false? (not-nil? nil))))
 
 (deftest when->-test
-  (is (= "some" 
+  (is (= "some"
         (when-> nil nil? "some")))
   (is (= "somemore"
         (when-> nil nil? (do "some" "somemore"))))
@@ -148,8 +148,8 @@
   (is (= "hao-itang"
         (when-> "itang" (partial = "itang") #(str "hao-" %)))))
 
-(deftest when-not->-test 
-  (is (= nil 
+(deftest when-not->-test
+  (is (= nil
         (when-not-> nil nil? "some")))
   (is (= nil
         (when-not-> nil nil? (do "some" "somemore"))))

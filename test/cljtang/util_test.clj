@@ -7,7 +7,7 @@
          (find-namespaces "cljtang.core-test/func 1 2 3")))
   (is (= #{"cljtang.core-test"
            "cljtang.core"}
-         (find-namespaces 
+         (find-namespaces
            (str "cljtang.core-test/func"
                 " 1 2 3 "
                 "(cljtang.core/find-namespaces \"\")")))))

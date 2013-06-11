@@ -16,6 +16,9 @@
   (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
     (->> coll (map f) doall)))
 
+(defn abs [x]
+  (if (neg? x) (- x) x))
+
 (def ^:dynamic *default-date-pattern* "yyyy-MM-dd HH:mm:ss")
 
 (defn format-date

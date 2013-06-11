@@ -40,6 +40,10 @@
            (is (= '({:key :name :value "itang-"})
                   (map->kv-pairs {:name "itang"}
                                  (fn [k v] (str v "-")))))))
+(deftest abs-test
+  (is (= 0 (abs 0)))
+  (is (= 1 (abs 1)))
+  (is (= 1 (abs -1))))
 
 (deftest format-date-test
   (testing "format-date"

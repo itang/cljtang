@@ -185,3 +185,14 @@
 
 (deftest fn-*-test
   (is (="itang" ((fn-* (str "itan" "g"))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn uuid [] nil)
+(require 'cljtang.util)
+(mixin-ns 'cljtang.util)
+(defn uuid2 [] "after")
+
+(deftest mixin-ns-test
+  (println "uuid:" (uuid))
+  (is (not-nil? (uuid)))
+  (is (= "after" (uuid2))))

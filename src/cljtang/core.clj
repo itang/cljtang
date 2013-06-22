@@ -146,3 +146,10 @@
 ;;constantly macro version
 (defmacro fn-* [& body]
   `(fn [& ~'args] ~@body))
+
+(defn mixin-ns
+  "merge s' public var to *ns*"
+  [s]
+  (let [ps (ns-publics s)]
+    (doseq [[k v] ps]
+      (intern *ns* k (var-get v)))))

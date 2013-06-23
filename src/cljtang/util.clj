@@ -2,21 +2,31 @@
   (:require [clojure.string :as string]
             [cljtang.core :refer :all]))
 
-(defn find-namespaces [^String code]
+(defn find-namespaces
+  "find namespace from code"
+  [^String code]
   (->> (re-seq #"([\w|\\.|\\-]+)/(\w+)" code)
        (map second)
        (into #{})))
 
-(defn ^String uuid []
+(defn ^String uuid
+  "generate uuid: String"
+  []
   (str (java.util.UUID/randomUUID)))
 
-(defn ^String uuid2 []
+(defn ^String uuid2
+  "generate uuid: String, remove all '-' chars"
+  []
   (string/replace (uuid) "-" ""))
 
-(defn ^int uuid->hash []
+(defn ^int uuid->hash
+  "uuid to hash code"
+  []
   (.hashCode (uuid)))
 
-(defn ^String uuid->hash->id []
+(defn ^String uuid->hash->id
+  "uuid to hash code, as id: Unsigned Int"
+  []
   (let [hash (when-> (uuid->hash) neg? #(bit-shift-left (- %) 1))]
     (str hash)))
 

@@ -3,23 +3,33 @@
            java.text.SimpleDateFormat
            [java.io PrintWriter StringWriter]))
 
-(defn named? [obj]
+(defn named?
+  "instance of clojure.lang.Named?"
+  [obj]
   (instance? clojure.lang.Named obj))
 
-(defn each [a1 a2]
+(defn each
+  "each: like doseq with callback"
+  [a1 a2]
   (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
     (doseq [e coll] (f e))))
 
-(def doeach each)
+(def ^{:doc "alias each"} doeach each)
 
-(defn domap [a1 a2]
+(defn domap
+  "eager map"
+  [a1 a2]
   (let [[f coll] (if (fn? a1) [a1 a2] [a2 a1])]
     (->> coll (map f) doall)))
 
-(defn abs [x]
+(defn abs
+  "as Math/abs"
+  [x]
   (if (neg? x) (- x) x))
 
-(def ^:dynamic *default-date-pattern* "yyyy-MM-dd HH:mm:ss")
+(def ^{:dynamic true 
+       :doc "default date pattern for date format"}
+  *default-date-pattern* "yyyy-MM-dd HH:mm:ss")
 
 (defn format-date
   "格式化日期"
@@ -110,14 +120,19 @@
   [test & body]
   (list 'if-not-nil test (cons 'do body)))
 
-(defn not-nil? [x]
+(defn not-nil?
+  "comp not nil?"
+  [x]
   (not (nil? x)))
 
-;; no ifn?
-(defn wfn? [x]
+(defn wfn?
+  "fn? or keyword?"
+  [x]
   (or (fn? x) (keyword? x)))
 
-(defmacro when-> [x test then]
+(defmacro when->
+  "like (test ? x : then)"
+  [x test then]
   `(let [~'x ~x
          ~'t ~test
          ~'t (if (wfn? ~'t)
@@ -130,21 +145,28 @@
            ~'then))
        ~'x)))
 
-(defmacro when-not-> [x test then]
+(defmacro when-not->
+  "like (!test ? x : then)"
+  [x test then]
   `(let [~'test ~test
          ~'test (if (wfn? ~'test)
                  (complement ~'test)
                  (not ~'test))]
      (when-> ~x ~'test ~then)))
 
-(defmacro nil-> [x then]
+(defmacro nil->
+  "like (x==nil ? then : x)"
+  [x then]
   `(when-> ~x nil? ~then))
 
-(defmacro not-nil-> [x then]
+(defmacro not-nil->
+  "like (x != nil ? then : x"
+  [x then]
   `(when-> ~x (comp not nil?) ~then))
 
-;;constantly macro version
-(defmacro fn-* [& body]
+(defmacro fn-*
+  "constantly macro version"
+  [& body]
   `(fn [& ~'args] ~@body))
 
 (defn mixin-ns

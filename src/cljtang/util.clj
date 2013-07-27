@@ -30,9 +30,14 @@
   (let [hash (when-> (uuid->hash) neg? #(bit-shift-left (- %) 1))]
     (str hash)))
 
+(defn ^String repeat-str
+  "returns a new string consisting of count copies of the string s"
+  [n s]
+  (->> s (repeat n) string/join))
+
 (comment
-(defn uid [& {:keys [length type prefix suffix]
-              :or {length 6 type :number prefix "" suffix ""}}]
-  (println length type prefix suffix)
-  (cond = type
-    :number (uuid->hash->id))))
+  (defn uid [& {:keys [length type prefix suffix]
+                :or {length 6 type :number prefix "" suffix ""}}]
+    (println length type prefix suffix)
+    (cond = type
+          :number (uuid->hash->id))))

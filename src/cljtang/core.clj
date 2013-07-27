@@ -27,7 +27,7 @@
   [x]
   (if (neg? x) (- x) x))
 
-(def ^{:dynamic true 
+(def ^{:dynamic true
        :doc "default date pattern for date format"}
   *default-date-pattern* "yyyy-MM-dd HH:mm:ss")
 

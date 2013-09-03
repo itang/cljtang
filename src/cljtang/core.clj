@@ -175,3 +175,14 @@
   (let [ps (ns-publics s)]
     (doseq [[k v] ps]
       (intern *ns* k (var-get v)))))
+
+(defmacro defdynamic [name init & {:keys [after-set]}]
+  (let [sname (str "*" name "*")
+        getname (str "get-" name)
+        setname (str "set-" name "!")]
+    `(do
+       (def ~(with-meta (symbol sname) (assoc (meta name) :dynamic true)) ~init)
+       (defn ~(symbol getname) [] ~(symbol sname))
+       (defn ~(symbol setname) [~'it]
+         (alter-var-root #'~(symbol sname) (constantly ~'it))
+         (do ~after-set)))))

@@ -196,3 +196,11 @@
   (println "uuid:" (uuid))
   (is (not-nil? (uuid)))
   (is (= "after" (uuid2))))
+
+(deftest defdynamic-test
+  (defdynamic dynamic-var 100 :after-set (inc (get-dynamic-var)))
+  (is (= 100 *dynamic-var*))
+  (let [ret (set-dynamic-var! 200)]
+    (is (= 200 *dynamic-var*))
+    (is (= 200 (get-dynamic-var)))
+    (is (= ret 201))))

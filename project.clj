@@ -1,11 +1,13 @@
-(defproject cljtang "0.1.2"
+(defproject cljtang "0.1.3"
   :description "Itang's Clojure utility 糖"
   :url "http://project.itang.me/cljtang"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.5.1"]]
-  :profiles {:dev {:plugins [[codox "0.6.4"]
-                             [lein-pprint "1.1.1"]
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [potemkin "0.3.3"]
+                 [prismatic/plumbing "0.1.0"]
+                 [bultitude "0.2.2"]]
+  :profiles {:dev {:plugins [[codox "0.6.6"]
                              [lein-checkall "0.1.1"]]}
              :1.4 {:dependencies [[org.clojure/clojure "1.4.0"]]}
              :1.5 {:dependencies [[org.clojure/clojure "1.5.1"]]}}

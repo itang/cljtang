@@ -25,7 +25,7 @@
  [bultitude.core
   namespaces-on-classpath]
 
- [cljtang.lib
+ [cljtang.core
   domap
   when-not->
   named?

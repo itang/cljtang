@@ -6,7 +6,7 @@ Itang's Clojure utility 糖.
 
 To install cljtang, add the following dependency to your project.clj file:
 
-        [cljtang "0.1.1"]
+        [cljtang "0.1.5"]
         
 ## Usage
 

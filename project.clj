@@ -1,4 +1,4 @@
-(defproject cljtang "0.1.3"
+(defproject cljtang "0.1.5"
   :description "Itang's Clojure utility 糖"
   :url "http://project.itang.me/cljtang"
   :license {:name "Eclipse Public License"

@@ -11,13 +11,11 @@
 
 (defn ^String uuid
   "generate uuid: String"
-  []
-  (str (java.util.UUID/randomUUID)))
-
-(defn ^String uuid2
-  "generate uuid: String, remove all '-' chars"
-  []
-  (string/replace (uuid) "-" ""))
+  [& {:keys [simplify] :or {simplify false}}]
+  (let [ret (str (java.util.UUID/randomUUID))]
+    (if simplify
+      (string/replace ret "-" "")
+      ret)))
 
 (defn ^int uuid->hash
   "uuid to hash code"

@@ -12,6 +12,10 @@
                 " 1 2 3 "
                 "(cljtang.core/find-namespaces \"\")")))))
 
+(deftest uuid-test
+  (is (= 36 (count (uuid))))
+  (is (= 32 (count (uuid :simplify true)))))
+
 (deftest repeat-str-test
   (is (= "" (repeat-str -1 "*")))
   (is (= "" (repeat-str 0 "*")))

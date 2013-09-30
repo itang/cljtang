@@ -14,7 +14,9 @@
 
 (deftest uuid-test
   (is (= 36 (count (uuid))))
-  (is (= 32 (count (uuid :simplify true)))))
+  (is (= 32 (count (uuid :simplify))))
+  (is (number? (uuid :hash)))
+  (is (< 0 (Long/parseLong (uuid :hash-id)))))
 
 (deftest repeat-str-test
   (is (= "" (repeat-str -1 "*")))

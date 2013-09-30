@@ -11,22 +11,14 @@
 
 (defn ^String uuid
   "generate uuid: String"
-  [& {:keys [simplify] :or {simplify false}}]
-  (let [ret (str (java.util.UUID/randomUUID))]
-    (if simplify
-      (string/replace ret "-" "")
+  [& [mode]]
+  (let [^String ret (str (java.util.UUID/randomUUID))]
+    (case mode
+      :full ret
+      :simplify (string/replace ret "-" "")
+      :hash (.hashCode ret)
+      :hash-id (str (when-> (.hashCode ret) neg? #(bit-shift-left (- %) 1)))
       ret)))
-
-(defn ^int uuid->hash
-  "uuid to hash code"
-  []
-  (.hashCode (uuid)))
-
-(defn ^String uuid->hash->id
-  "uuid to hash code, as id: Unsigned Int"
-  []
-  (let [hash (when-> (uuid->hash) neg? #(bit-shift-left (- %) 1))]
-    (str hash)))
 
 (defn ^String repeat-str
   "returns a new string consisting of count copies of the string s"

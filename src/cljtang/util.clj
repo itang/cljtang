@@ -1,4 +1,5 @@
 (ns cljtang.util
+  (:import (java.util UUID))
   (:require [clojure.string :as string]
             [cljtang.core :refer :all]))
 
@@ -12,7 +13,7 @@
 (defn ^String uuid
   "generate uuid: String"
   [& [mode]]
-  (let [^String ret (str (java.util.UUID/randomUUID))]
+  (let [^String ret (str (UUID/randomUUID))]
     (case mode
       :full ret
       :simplify (string/replace ret "-" "")
